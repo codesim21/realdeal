@@ -300,14 +300,14 @@
                             <h3 class="card-title">Get In Touch</h3>
                         </div>
                         <div class="card-content">
-                            <form class="contact-form">
+                            <form class="contact-form" id="contactForm">
                                 <div class="form-row">
-                                    <input type="text" placeholder="First Name" class="form-input">
-                                    <input type="text" placeholder="Last Name" class="form-input">
+                                    <input type="text" id="firstName" placeholder="First Name" class="form-input" required>
+                                    <input type="text" id="lastName" placeholder="Last Name" class="form-input" required>
                                 </div>
-                                <input type="email" placeholder="Email Address" class="form-input">
-                                <input type="tel" placeholder="Phone Number" class="form-input">
-                                <textarea placeholder="Tell us about your hair journey and what service you're interested in..." class="form-textarea"></textarea>
+                                <input type="email" id="email" placeholder="Email Address" class="form-input" required>
+                                <input type="tel" id="phone" placeholder="Phone Number" class="form-input" required>
+                                <textarea id="message" placeholder="Tell us about your hair journey and what service you're interested in..." class="form-textarea" required></textarea>
                                 <button type="submit" class="btn btn-primary contact-btn">Send Message</button>
                             </form>
                         </div>
@@ -412,5 +412,42 @@
     </footer>
 
     <script src="script.js"></script>
+    
+    <script>
+        // Contact form functionality
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault(); // Prevent default form submission
+            
+            // Get form data
+            const firstName = document.getElementById('firstName').value;
+            const lastName = document.getElementById('lastName').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const message = document.getElementById('message').value;
+            
+            // Create WhatsApp message
+            const whatsappMessage = `Hi Eden Roots! 🌿
+
+Name: ${firstName} ${lastName}
+Email: ${email}
+Phone: ${phone}
+
+Message: ${message}
+
+I'm interested in your services and would like to book an appointment.`
+
+            // Your WhatsApp number (remove spaces and special characters)
+            const whatsappNumber = '447507263547';
+            
+            // Create WhatsApp URL
+            const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`;
+            
+            // Open WhatsApp
+            window.open(whatsappUrl, '_blank');
+            
+            // Show success message
+            alert('Opening WhatsApp to send your message to Eden Roots!');
+        });
+    </script>
 </body>
 </html>
