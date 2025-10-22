@@ -33,7 +33,7 @@
                     <a href="#contact" class="nav-link">Contact</a>
                 </nav>
 
-                <button class="btn btn-primary">Book Appointment</button>
+                <button class="btn btn-primary" onclick="scrollToContact()">Book Appointment</button>
             </div>
         </div>
     </header>
@@ -49,8 +49,8 @@
                 connection to your crown.
             </p>
             <div class="hero-buttons">
-                <button class="btn btn-primary btn-lg">Book Your Session</button>
-                <button class="btn btn-outline btn-lg">Learn About Our Culture</button>
+                <button class="btn btn-primary btn-lg" onclick="scrollToContact()">Book Your Session</button>
+                <button class="btn btn-outline btn-lg" onclick="scrollToAbout()">Learn About Our Culture</button>
             </div>
         </div>
     </section>
@@ -414,6 +414,24 @@
     <script src="script.js"></script>
     
     <script>
+        // Scroll to contact form function
+        function scrollToContact() {
+            const contactSection = document.getElementById('contact');
+            contactSection.scrollIntoView({ 
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+        
+        // Scroll to about section function
+        function scrollToAbout() {
+            const aboutSection = document.getElementById('about');
+            aboutSection.scrollIntoView({ 
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+        
         // Contact form functionality
         document.getElementById('contactForm').addEventListener('submit', function(e) {
             e.preventDefault(); // Prevent default form submission
