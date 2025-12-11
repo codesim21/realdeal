@@ -30,6 +30,7 @@
                     <a href="#about" class="nav-link">About</a>
                     <a href="#services" class="nav-link">Services</a>
                     <a href="#gallery" class="nav-link">Gallery</a>
+                    <a href="pricelist.html" class="nav-link">Price List</a>
                     <a href="#contact" class="nav-link">Contact</a>
                 </nav>
 
@@ -390,6 +391,7 @@
                         <li><a href="#about" class="footer-link">About</a></li>
                         <li><a href="#services" class="footer-link">Services</a></li>
                         <li><a href="#gallery" class="footer-link">Gallery</a></li>
+                        <li><a href="pricelist.html" class="footer-link">Price List</a></li>
                         <li><a href="#contact" class="footer-link">Contact</a></li>
                     </ul>
                 </div>
@@ -431,6 +433,21 @@
                 block: 'start'
             });
         }
+        
+        // Check if we need to pre-fill the message when page loads (from price list page)
+        window.addEventListener('DOMContentLoaded', function() {
+            const selectedService = sessionStorage.getItem('selectedService');
+            if (selectedService && window.location.hash === '#contact') {
+                setTimeout(function() {
+                    const messageField = document.getElementById('message');
+                    if (messageField) {
+                        messageField.value = `Hi Eden Roots! 🌿\n\nI'm interested in booking: ${selectedService}\n\nPlease let me know your availability. Thank you!`;
+                        messageField.focus();
+                        sessionStorage.removeItem('selectedService');
+                    }
+                }, 500);
+            }
+        });
         
         // Contact form functionality
         document.getElementById('contactForm').addEventListener('submit', function(e) {
