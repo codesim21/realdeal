@@ -1,4 +1,4 @@
-// Ital Locks Website JavaScript
+// Eden Roots Website JavaScript
 // Handles all interactive functionality for the website
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -313,29 +313,34 @@ function initMobileMenu() {
         gap: 2rem;
     `;
     
+    // Determine base path for links based on current page
+    const isPriceListPage = window.location.pathname.includes('pricelist.html');
+    const basePath = isPriceListPage ? 'index.html' : '';
+    
     // Create mobile menu content
     const mobileMenuContent = document.createElement('div');
     mobileMenuContent.innerHTML = `
         <div class="mobile-menu-header">
             <div class="logo-section">
                 <div class="logo-icon">
-                    <span class="logo-text">IL</span>
+                    <span class="logo-text">ER</span>
                 </div>
                 <div class="logo-text-section">
-                    <h1 class="logo-title">Ital Locks</h1>
+                    <h1 class="logo-title">Eden Roots</h1>
                     <p class="logo-subtitle">Natural Hair Specialists</p>
                 </div>
             </div>
             <button class="mobile-menu-close">×</button>
         </div>
         <nav class="mobile-nav">
-            <a href="#home" class="mobile-nav-link">Home</a>
-            <a href="#about" class="mobile-nav-link">About</a>
-            <a href="#services" class="mobile-nav-link">Services</a>
-            <a href="#gallery" class="mobile-nav-link">Gallery</a>
-            <a href="#contact" class="mobile-nav-link">Contact</a>
+            <a href="${basePath}#home" class="mobile-nav-link">Home</a>
+            <a href="${basePath}#about" class="mobile-nav-link">About</a>
+            <a href="${basePath}#services" class="mobile-nav-link">Services</a>
+            <a href="${basePath}#gallery" class="mobile-nav-link">Gallery</a>
+            <a href="pricelist.html" class="mobile-nav-link">Price List</a>
+            <a href="${basePath}#contact" class="mobile-nav-link">Contact</a>
         </nav>
-        <button class="btn btn-primary mobile-book-btn">Book Appointment</button>
+        <button class="btn btn-primary mobile-book-btn" onclick="window.location.href='${basePath}#contact'">Book Appointment</button>
     `;
     
     mobileMenu.appendChild(mobileMenuContent);
@@ -397,8 +402,22 @@ function initMobileMenu() {
     
     // Close menu when clicking on links
     mobileMenu.querySelectorAll('.mobile-nav-link').forEach(link => {
-        link.addEventListener('click', closeMobileMenu);
+        link.addEventListener('click', function(e) {
+            // If it's an external link (like pricelist.html), don't prevent default
+            if (this.getAttribute('href').startsWith('http') || this.getAttribute('href').includes('.html')) {
+                // Allow navigation, menu will close naturally
+            } else {
+                // For anchor links, close menu first
+                closeMobileMenu();
+            }
+        });
     });
+    
+    // Close menu when clicking Book Appointment button
+    const mobileBookBtn = mobileMenu.querySelector('.mobile-book-btn');
+    if (mobileBookBtn) {
+        mobileBookBtn.addEventListener('click', closeMobileMenu);
+    }
     
     // Close menu when clicking outside
     mobileMenu.addEventListener('click', function(e) {
